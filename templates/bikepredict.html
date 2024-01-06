@@ -1,0 +1,250 @@
+{% load static %}
+{% load mathfilters %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!------Font Awesome CDN ------>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!------------Link for Css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/owl.theme.green.min.css' %}" type='text/css'>
+  <!-----Google Fonts -------->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;0,900;1,100;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <title>Online Auction | Bikeprediction Page</title>
+</head>
+<style>
+  body{
+    background-image: url("/static/images/img1.jpg");
+    height: 700px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    
+}
+</style>
+<body>
+  <section class="header">
+    <div class="main-container">
+      {%if messages%}
+            {% for x in messages%}
+            <script>alert("{{x}}")</script>
+            {%endfor%}
+            {%endif%}
+      <!--Top Header start -->
+      <div class="wrapp-item">
+        <div class="container">
+          <div class="header-top">
+            <ul>
+              <li>
+                <a href="#"><i class="fa fa-shopping-cart fa-2x"></i></a>
+              </li>
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'profile' %}"> <i class="fa fa-user-circle fa-2x"></i></a>
+              </li>
+              {%else%}
+              <li>
+                <a href="accounts/login"> <i class="fa fa-user-circle fa-2x"></i></a>
+              </li>
+              {%endif%}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="navigation-menu container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            {%if user.is_authenticated %}
+            <a class="navbar-brand" href="#">Hello,{{user.first_name}}</a>
+            {% else %}
+            <a class="navbar-brand" href="#">welcome</a>
+            {%endif%}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+              
+               <!-- <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Pages
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#browse">Action</a></li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#rea">Testimonials</a></li>
+                  </ul>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link" href="listing">Listing</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#contact" >Contact</a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+  {%if messages%}
+  {% for x in messages%}
+  <script>alert("{{x}}")</script>
+  {%endfor%}
+  {%endif%}
+  <script src="app.js"></script>
+  
+  <center style="background-color: rgba(120, 46, 252, 0.4); padding: 10px; color: white;"><div><h2><u>Predict your bike price</u></h2></div></center>
+  <div class="container"><div class="container">
+    <form method="POST" action="{%url 'bikepredicts'%}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="rows" style="background-color: rgba(220, 220, 220, 0.7);">
+    <center>
+        <div class="form-group col-md-8">
+            <table class="table">
+            <tr>
+                <td><label>bike Model</label></td>
+                <td>
+                    <select class="custom-select" name="bikemodel" id="bikemodel" required>
+                        <option selected>Select...model</option>
+                        <option value="0">Hero</option>
+                        <option value="1">Honda</option>
+                        <option value="2">TVS</option>
+                        <option value="3">Yamaha</option>
+                        <option value="4">Bajaj</option>
+                        <option value="5">Suzuki</option>
+                        <option value="6">RoyalEnfield</option>
+                        <option value="7">Jawa</option>
+                        <option value="8">KTM</option>
+                        <option value="9">Mahindra</option>
+                        <option value="10">Kawasaki</option>
+                        <option value="11">Beneli</option>
+                        <option value="12">Italijet</option>
+                        <option value="13">Ducati</option>
+                        <option value="14">BMW</option>
+                        <option value="15">HarleyDavidson</option>
+                        <option value="16">Aprilia</option>
+                        <option value="17">Triumph</option>
+                        <option value="18">CFMoto</option>
+                        <option value="19">Husqvarna</option>
+                        <option value="20">SYM</option>
+                        <option value="21">LML</option>
+                        <option value="22">BSA</option>
+                        <option value="23">Vespa</option>
+                        <option value="24">Zontes</option>
+                        <option value="25">HeroHonda</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr><td><label>Launch Year: </label></td> <td><input type='text' class="form-control" name="bikeyear" placeholder="Ex: 1999, 2000, 2001..."  required></td></tr>
+
+            <tr>
+                <td><label>bike Transmission</label></td>
+                <td>
+                    <select class="custom-select" name="biketransmission" id="biketransmission"  required>
+                        <option selected>Select...transmission</option>
+                        <option value="0">Manual</option>
+                        <option value="1">Automatic</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr><td><label>Kilometer: </label></td> <td><input type='text' class="form-control" name="bikekilometer" placeholder="Enter kilometer..."   required></td></tr>
+
+            <tr>
+                    <td><label>bike fuelType</label></td>
+                    <td>
+                        <select class="custom-select" name="bikefueltype" id="bikefueltype"   required>
+                            <option selected>Select...fueltype</option>
+                            <option value="0">Petrol</option>
+                            <
+                        </select>
+                    </td>
+            </tr>
+            
+            <tr><td><label>Tax: </label></td> <td><input type='text' class="form-control" name="biketax" placeholder="Enter tax..."  required></td></tr>
+            <tr><td><label>mpg: </label></td> <td><input type='text' class="form-control" name="bikempg" placeholder="Enter mpg..."    required></td></tr>
+            <tr><td><label>Engine Size: </label></td> <td><input type='text' class="form-control" name="bikeengine" placeholder="Enter engine size..."  required></td></tr>
+
+            <tr><td></td><td><button type="submit" class="btn btn-primary">Submit</button></td></tr>
+            </table>
+        </div>
+        {% if target %}
+        <div class="form-group col-md-8">
+            <table class="table table-striped" style="background-color: rgba(255, 255, 255, 0.4);">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col">model</th>
+                <th scope="col">year</th>
+                <th scope="col">transmission</th>
+                <th scope="col">kilometer</th>
+                <th scope="col">fuelType</th>
+                <th scope="col">tax</th>
+                <th scope="col">mpg</th>
+                <th scope="col">engineSize</th>
+                <th scope="col">price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row"></th>
+                <td>{{bikemodel}}</td>
+                <td>{{bikeyear}}</td>
+                <td>{{biketransmission}}</td>
+                <td>{{bikekilometer}}</td>
+                <td>{{bikefueltype}}</td>
+                <td>{{biketax}}</td>
+                <td>{{bikempg}}</td>
+                <td>{{bikeengine}}</td>
+                <td>{{target}}</td>
+                </tr>
+            </tbody>
+            </table>
+            <p>Note: The price shown, will be the starting price to Bid </p>
+        </div>
+        {% endif %}
+    </center>
+    </div>
+        </form>
+  </div></div>
+
+  <script src="static/js/app.js"></script>
+  <!---------- ---------->
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-------jQuery CDN-->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script>
+    
+  </script>
+    <script src="js/app.js"></script>
+  <style>
+    .product::-webkit-scrollbar{
+        width: 10px;
+    }
+  </style>  
+</body>
+</html>

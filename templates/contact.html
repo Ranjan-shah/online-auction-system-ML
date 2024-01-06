@@ -1,0 +1,348 @@
+{% load static %}
+{% load mathfilters %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!------Font Awesome CDN ------>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!------------Link for Css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/owl.theme.green.min.css' %}" type='text/css'>
+  <!-----Google Fonts -------->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;0,900;1,100;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <title>Online Auction | Contact Page</title>
+</head>
+  
+<body>
+  <section class="header">
+    <div class="main-container">
+      {%if messages%}
+            {% for x in messages%}
+            <script>alert("{{x}}")</script>
+            {%endfor%}
+            {%endif%}
+      <!--Top Header start -->
+      <div class="wrapp-item">
+        <div class="container">
+          <div class="header-top">
+            <ul>
+              <li>
+                <a href="#"><i class="fa fa-shopping-cart fa-2x"></i></a>
+              </li>
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'profile' %}"> <i class="fa fa-user-circle fa-2x"></i></a>
+              </li>
+              {%else%}
+              <li>
+                <a href="accounts/login"> <i class="fa fa-user-circle fa-2x"></i></a>
+              </li>
+              {%endif%}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!------ Top Header End --------->
+      <!-------------Navigation Start ------>
+      <div class="navigation-menu container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            {%if user.is_authenticated %}
+            <a class="navbar-brand" href="#">Hello,{{user.first_name}}</a>
+            {% else %}
+            <a class="navbar-brand" href="#">welcome</a>
+            {%endif%}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="accounts/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="accounts/login">Login</a>
+                </li>
+                {% endif %}
+                 <!--
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Pages
+                  </a>
+                 
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="electronics">electronics</a></li>
+                    <li><a class="dropdown-item" href="vehicle">vehicles</a></li>
+                    <li><a class="dropdown-item" href="sports">sports</a></li>
+                    <li><a class="dropdown-item" href="jewelry">jewelry</a></li>
+                    <!--<li><a class="dropdown-item" href="real state">real state</a></li>
+                    <!--<li><a class="dropdown-item" href="#vehi"></a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#rea">Testimonials</a></li>
+                  </ul>
+                </li>  -->
+                <li class="nav-item">
+                  <a class="nav-link" href="listing">Listing</a>
+                
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="contact" >Contact</a>
+                </li>
+              </ul>
+              <!--
+              <form action="" class="d-flex">
+                <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" onekey="search()">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form> -->
+              
+            </div>
+          </div>
+        </nav>
+      </div>
+
+   
+        <!--   
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    
+        <div class="container2">
+          <div class="form-container">
+            <div class="left-container">
+              <div class="left-inner-container">
+                <h2>Let's Chat</h2>
+                <p>Whether you have a question, want to start a project or            simply want to connect.</p>
+                <br>
+                <p>Feel free to send me a message in the contact form</p>
+              </div>
+            </div>
+          <div class="right-container">
+            <div class="right-inner-container">
+              <form action="/" method='post'>
+                {% csrf_token %}
+                <h2 class="lg-view">Contact</h2>
+                <h2 class="sm-view">Let's Chat</h2>
+                <p>* Required</p>
+                <!--<div class="social-container">
+                  <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                  <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div> 
+                <input type="text" id="name" name="name" placeholder="Name *"  required />
+                <input type="email" id="email" name="email" placeholder="Email *" required/>
+                <input type="phone" id="subject" name="subject" placeholder="Subject" />
+                <textarea rows="4" id="desc" name="desc" placeholder="Message"></textarea>
+                <button>Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>  -->
+      
+     <div class="about2">
+      <h1>Connect With Us & Discuss About Your Products </h1>
+      <p1>
+        Online Auction System is a web based application which will help users to buy or sell item;user can trade anything they want by posting ad. <br> This application will allow users to post their products for auction; bidder can register and can bid for any available product. 
+        <br>Take a sneak peak around our site; you will find loads to inspire to work with us.      
+      </p1>
+
+    </div>
+      <div class="center">
+        <h1>Let's have a talk.</h1>
+      </div>
+     
+      <iframe
+    allow="microphone;"
+    width="1500"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/444ade04-04d8-48d8-8bce-e8e176fc5da0">
+    
+</iframe>
+<style>
+  .footer {
+    position: bottom;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    
+    background-color: #AF63E9;
+    color: black;
+    text-align: center;
+  }
+  .center{
+    text-align: center;
+    padding: 15px;
+  }
+  .about2{
+    text-align: center;
+    padding: 10px;
+  }
+
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+    
+        *{
+          box-sizing:border-box;
+          margin:0;
+        }
+        body2 {
+          background: linear-gradient(90deg, #BE8CEF 0%, rgba(61, 46, 232, 0.83) 100%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          font-family: 'Montserrat', sans-serif;
+          font-size:10px;
+          height: 100vh;
+          margin: -20px 0 50px;
+        }
+    
+        .container2 {
+          background-color: #ffffff;
+          border-radius: 5px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+              0 10px 10px rgba(0,0,0,0.22);
+          position: relative;
+          overflow: hidden;
+          width: 768px;
+          max-width: 100%;
+          min-height: 550px;
+          min-width:370px;
+        }
+    
+        h2 {
+          font-size:2rem;
+          margin-bottom:1rem;
+        }
+        .form-container {
+          display:flex;
+         
+        }
+    
+        .left-container {
+          flex:1;
+          height:480px;
+          background-color:#00b4cf;
+        }
+        .right-container {
+          display:flex;
+          flex:1;
+          height:460px;
+          background-color: #ffffff;
+          justify-content:center;
+          align-items:center;
+        }
+    
+        .left-container {
+          display:flex;
+          flex:1;
+          height:480px;
+          justify-content:center;
+          align-items:center;
+            color:#ffffff;
+        }
+    
+        .left-container p {
+          font-size:0.9rem;
+        }
+    
+        .right-inner-container {
+          width:70%;
+          height:80%;
+          text-align:center;
+        }
+    
+        .left-inner-container {
+          height:50%;
+          width:80%;
+          text-align:center;
+          line-height:22px;
+        }
+    
+        input, textarea {
+          background-color: #eee;
+          border: none;
+          padding: 12px 15px;
+          margin: 8px 0;
+          width: 100%;
+          font-size:0.8rem;
+        }
+    
+        input:focus, textarea:focus{
+          outline:1px solid #00b4cf;
+        }
+    
+        button {
+          border-radius: 20px;
+          border: 1px solid #00b4cf;
+          background-color: #00b4cf;
+          color: #FFFFFF;
+          font-size: 12px;
+          font-weight: bold;
+          padding: 12px 45px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          transition: transform 80ms ease-in;
+          cursor:pointer;
+        }
+    
+        button:hover {
+          opacity:0.7;
+        }
+        @media only screen and (max-width: 600px) {
+          .left-container{
+            display: none;
+          }
+          .lg-view {
+            display:none;  
+          }
+        }
+    
+        @media only screen and (min-width: 600px) {
+          .sm-view {
+            display:none;  
+          }
+        }
+    
+        form p {
+          text-align:left;
+        }
+  </style>
+  
+  <div class="footer">
+    
+    <p1>Online Auction System,This website is developed by Ranjan , Prem , Jagannath and Mohan.</p1><br>
+    <p2>To post your Ad mail your information at <i class="fa fa-envelope fa-lg"></i> info@gmail.com along with product photos.</p2><br>
+    <p3>Also visit our office at <i class="fa fa-map-marker fa-lg"></i> Kalanki,Kathmandu.</p3><br>
+    <p4>OR
+      <i class="fa fa-phone fa-lg"></i>9813551626
+   </p4>
+  
+  </div> 
+</body>
+</html>   
